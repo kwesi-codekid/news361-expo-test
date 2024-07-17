@@ -8,7 +8,7 @@ export type ButtonProps = {
   onPress: () => void;
   color?: "primary" | "danger" | "success" | "default" | undefined;
   radius?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
-  className?: string | undefined;
+  classNames?: string | undefined;
 };
 
 const Button = ({
@@ -16,7 +16,7 @@ const Button = ({
   onPress,
   color = "default",
   radius = "sm",
-  className = "w-40",
+  classNames,
 }: ButtonProps) => {
   const [showRipple, setShowRipple] = useState(false);
   const handleRippleEffect = () => {
@@ -42,7 +42,7 @@ const Button = ({
           : color === "success"
           ? "bg-green-500"
           : "bg-slate-500"
-      } px-6 py-2 flex items-center justify-center ${
+      } px-5 flex items-center justify-center ${
         radius === "full"
           ? "rounded-full"
           : radius === "md"
@@ -56,9 +56,9 @@ const Button = ({
           : radius === "3xl"
           ? "rounded-3xl"
           : "rounded-sm"
-      } ${className ? className : "w-10"} relative overflow-hidden`}
+      } h-9 relative overflow-hidden ${classNames}`}
     >
-      <View className="flex flex-row items-center justify-center z-10">
+      <View className={`flex flex-row items-center justify-center z-10`}>
         {children}
       </View>
 
@@ -79,11 +79,11 @@ const Button = ({
             transition={{ type: "timing", duration: 300 }}
             className={`absolute align-middle ${
               color === "primary"
-                ? "bg-blue-400/50"
+                ? "bg-blue-400/70"
                 : color === "danger"
-                ? "bg-red-300/50"
+                ? "bg-red-300/70"
                 : color === "success"
-                ? "bg-green-400/50"
+                ? "bg-green-400/70"
                 : "bg-slate-300/20"
             } w-8 h-8 rounded-full`}
           />

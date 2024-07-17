@@ -1,8 +1,9 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import { AnimatePresence, MotiView } from "moti";
 import { ReactNode } from "react";
-import { Pressable, View, Text } from "react-native";
+import { Pressable, View, Text, ScrollView } from "react-native";
 import Button from "./button";
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 export type ModalProps = {
   children: string | ReactNode;
@@ -13,6 +14,8 @@ export type ModalProps = {
 };
 
 const Modal = ({ children, open, setOpen, onOk, title }: ModalProps) => {
+  const colorScheme = useColorScheme();
+
   return (
     <AnimatePresence>
       {open && (
@@ -27,7 +30,7 @@ const Modal = ({ children, open, setOpen, onOk, title }: ModalProps) => {
             opacity: 0,
           }}
           transition={{ type: "timing", duration: 400 }}
-          className="absolute items-center justify-center bg-black/30 h-screen top-0 left-0 w-full"
+          className="absolute items-center justify-center bg-black/50 dark:bg-black/70 h-screen top-0 left-0 w-full"
         >
           <MotiView
             from={{
@@ -43,7 +46,7 @@ const Modal = ({ children, open, setOpen, onOk, title }: ModalProps) => {
               opacity: 0,
             }}
             transition={{ type: "timing", duration: 400 }}
-            className="w-[90%] h-60 bg-white dark:bg-slate-950 rounded-3xl p-3 justify-between"
+            className="w-[90%] bg-white dark:bg-slate-900 rounded-3xl p-3 pt-2 justify-between dark:border dark:border-white/10"
           >
             {/* modal header */}
             <View className="flex-row items-center justify-between">
@@ -52,13 +55,15 @@ const Modal = ({ children, open, setOpen, onOk, title }: ModalProps) => {
                 <FontAwesome6
                   name="times-circle"
                   size={24}
-                  className="text-slate-800 dark:text-white"
+                  color={colorScheme === "dark" ? "#fff" : "#0f172a"}
                 />
               </Pressable>
             </View>
 
             {/* modal body */}
-            <View>{children}</View>
+            <ScrollView className="max-h-[50vh] !overflow-auto my-4 border">
+              {children}
+            </ScrollView>
 
             {/* modal footer */}
             <View className="flex-row items-center justify-end">
@@ -66,15 +71,17 @@ const Modal = ({ children, open, setOpen, onOk, title }: ModalProps) => {
                 color="danger"
                 onPress={() => setOpen(false)}
                 radius="xl"
-                className="mr-2 w-2"
+                classNames="w-max mr-2"
               >
-                <Text className="text-white font-montserrat">Cancel</Text>
+                <Text className="text-white text-sm font-montserrat">
+                  Cancel
+                </Text>
               </Button>
               <Button
                 color="success"
-                onPress={onOk}
+                onPress={() => {}}
                 radius="xl"
-                className="w-2"
+                classNames=""
               >
                 <Text className="text-white font-montserrat">Submit</Text>
               </Button>

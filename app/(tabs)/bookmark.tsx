@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useState } from "react";
 import { Skeleton } from "moti/skeleton";
-import { AnimatePresence, View as MotiView } from "moti";
+import { AnimatePresence, MotiText, View as MotiView } from "moti";
 
 const Bookmark = () => {
   const [show, setShow] = useState(true);
@@ -13,14 +13,18 @@ const Bookmark = () => {
     <SafeAreaView>
       <AnimatePresence exitBeforeEnter>
         <MotiView
-          from={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          transition={{ type: "timing", duration: 400 }}
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ type: "timing", duration: 500 }}
         >
-          <Text className="font-montserrat-bold text-center text-4xl text-green-600">
+          <MotiText
+            from={{ opacity: 0, translateY: 20 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ type: "timing", duration: 500 }}
+            className="font-montserrat-bold text-center text-4xl text-green-600"
+          >
             Bookmarks
-          </Text>
+          </MotiText>
 
           <View className="px-4 mt-6">
             <View className="flex-row">

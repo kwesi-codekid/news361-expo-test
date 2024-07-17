@@ -1,13 +1,16 @@
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Image, View, Text, Pressable } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useRef } from "react";
 export default function OnboardingInde() {
   const color = useColorScheme();
+  const onboardingRef = useRef<Onboarding>(null);
 
   return (
     <View style={{ flex: 1 }}>
       <Onboarding
+        ref={onboardingRef}
         pages={[
           {
             backgroundColor: color === "dark" ? "#020617" : "#bfdbfe",
@@ -68,12 +71,18 @@ export default function OnboardingInde() {
           </Pressable>
         )}
         NextButtonComponent={() => (
-          <Pressable className="rounded-full h-9 bg-green-600 flex items-center justify-center px-6 mr-4">
+          <Pressable
+            onPress={() => onboardingRef.current?.goNext()}
+            className="rounded-full h-9 bg-green-600 flex items-center justify-center px-6 mr-4"
+          >
             <Text className="text-white font-montserrat">Next</Text>
           </Pressable>
         )}
         SkipButtonComponent={() => (
-          <Pressable className="rounded-full h-9 bg-slate-600/50 flex items-center justify-center px-6 ml-4">
+          <Pressable
+            onPress={() => router.push("/login")}
+            className="rounded-full h-9 bg-slate-600/50 flex items-center justify-center px-6 ml-4"
+          >
             <Text className="text-white font-montserrat">Skip</Text>
           </Pressable>
         )}
